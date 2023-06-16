@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         buttonLogin.setTitle("Login", for: .normal)
         buttonLogin.setTitleColor(UIColor.black, for: .normal)
         buttonLogin.backgroundColor = .systemGray
-        buttonLogin.layer.cornerRadius = 20
+        buttonLogin.layer.cornerRadius = 15
         buttonLogin.layer.shadowColor = UIColor.black.cgColor
         buttonLogin.layer.shadowOpacity = 0.3
         buttonLogin.layer.shadowOffset = .zero
@@ -85,6 +85,33 @@ class ViewController: UIViewController {
         buttonForgotYourPassword.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
         buttonForgotYourPassword.translatesAutoresizingMaskIntoConstraints = false
         return buttonForgotYourPassword
+    }()
+    
+    private lazy var stripeLeftViewConnectWith: UIView = {
+        let stripeLeftViewConnectWith = UIView()
+        stripeLeftViewConnectWith.backgroundColor = .systemGray
+        stripeLeftViewConnectWith.translatesAutoresizingMaskIntoConstraints = false
+        stripeLeftViewConnectWith.layer.cornerRadius = 10
+        stripeLeftViewConnectWith.alpha = 0.5
+        return stripeLeftViewConnectWith
+    }()
+    
+    private lazy var stripeRightViewConnectWith: UIView = {
+        let stripeRightViewConnectWith = UIView()
+        stripeRightViewConnectWith.backgroundColor = .systemGray
+        stripeRightViewConnectWith.translatesAutoresizingMaskIntoConstraints = false
+        stripeRightViewConnectWith.layer.cornerRadius = 10
+        stripeRightViewConnectWith.alpha = 0.5
+        return stripeRightViewConnectWith
+    }()
+    
+    private lazy var textConnectWith: UILabel = {
+        let textConnectWith = UILabel()
+        textConnectWith.text = "or connect with"
+        textConnectWith.translatesAutoresizingMaskIntoConstraints = false
+        textConnectWith.font = UIFont.systemFont(ofSize: 12)
+        textConnectWith.textColor = UIColor.black.withAlphaComponent(0.5)
+        return textConnectWith
     }()
     
     private lazy var buttonFacebook: UIButton = {
@@ -115,6 +142,14 @@ class ViewController: UIViewController {
         return buttonTwitter
     }()
     
+    private lazy var textDontHaveAccount: UILabel = {
+        let textDontHaveAccount = UILabel()
+        textDontHaveAccount.text = "Don't have account?"
+        textDontHaveAccount.translatesAutoresizingMaskIntoConstraints = false
+        textDontHaveAccount.font = UIFont.systemFont(ofSize: 12)
+        textDontHaveAccount.textColor = UIColor.black.withAlphaComponent(0.5)
+        return textDontHaveAccount
+    }()
     
     
     //MARK: - LifeCycle
@@ -125,6 +160,15 @@ class ViewController: UIViewController {
         setupHierarchy()
         setupLayout()
     }
+    
+    private lazy var signUp: UIButton = {
+        let signUp = UIButton(type: .system)
+        signUp.setTitle("Sign up?", for: .normal)
+        signUp.setTitleColor(UIColor.black, for: .normal)
+        signUp.translatesAutoresizingMaskIntoConstraints = false
+        signUp.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        return signUp
+    }()
     
     //MARK: - Setups
     
@@ -139,9 +183,13 @@ class ViewController: UIViewController {
         view.addSubview(textPassword)
         view.addSubview(buttonForgotYourPassword)
         view.addSubview(buttonLogin)
+        view.addSubview(stripeLeftViewConnectWith)
+        view.addSubview(stripeRightViewConnectWith)
+        view.addSubview(textConnectWith)
         view.addSubview(buttonFacebook)
         view.addSubview(buttonTwitter)
-        
+        view.addSubview(textDontHaveAccount)
+        view.addSubview(signUp)
     }
     
     private func setupLayout() {
@@ -151,38 +199,55 @@ class ViewController: UIViewController {
             
             textNamePage.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             textNamePage.centerXAnchor.constraint (equalTo: view.centerXAnchor),
-            textNamePage.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -680),
             
-            textLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
+            textLogin.topAnchor.constraint(equalTo: textNamePage.topAnchor, constant: 100),
             textLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
             textLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            textLogin.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -640),
+            textLogin.heightAnchor.constraint(equalToConstant: 38),
             
-            textPassword.topAnchor.constraint(equalTo: view.topAnchor, constant: 230),
+            textPassword.topAnchor.constraint(equalTo: textLogin.topAnchor, constant: 55),
             textPassword.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
             textPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            textPassword.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -580),
+            textPassword.heightAnchor.constraint(equalToConstant: 38),
             
-            buttonLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 580),
+            buttonLogin.topAnchor.constraint(equalTo: textPassword.topAnchor, constant: 355),
             buttonLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
             buttonLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            buttonLogin.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -230),
+            buttonLogin.heightAnchor.constraint(equalToConstant: 41),
             
-            buttonForgotYourPassword.topAnchor.constraint(equalTo: buttonLogin.bottomAnchor, constant: 15),
+            buttonForgotYourPassword.topAnchor.constraint(equalTo: buttonLogin.topAnchor, constant: 60),
             buttonForgotYourPassword.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
             buttonForgotYourPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
+            buttonForgotYourPassword.heightAnchor.constraint(equalToConstant: 16),
             
-            buttonFacebook.topAnchor.constraint(equalTo: view.topAnchor, constant: 740),
-            buttonFacebook.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
-            buttonFacebook.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -215),
-            buttonFacebook.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -80),
+            stripeLeftViewConnectWith.topAnchor.constraint(equalTo: buttonFacebook.topAnchor, constant: -20),
+            stripeLeftViewConnectWith.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 70),
+            stripeLeftViewConnectWith.widthAnchor.constraint (equalToConstant: 80),
+            stripeLeftViewConnectWith.heightAnchor.constraint(equalToConstant: 2),
             
-            buttonTwitter.topAnchor.constraint(equalTo: view.topAnchor, constant: 740),
-            buttonTwitter.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 215),
-            buttonTwitter.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            buttonTwitter.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -80),
+            stripeRightViewConnectWith.topAnchor.constraint(equalTo: buttonTwitter.topAnchor, constant: -20),
+            stripeRightViewConnectWith.widthAnchor.constraint (equalToConstant: 80),
+            stripeRightViewConnectWith.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -70),
+            stripeRightViewConnectWith.heightAnchor.constraint(equalToConstant: 2),
             
+            textConnectWith.centerXAnchor.constraint (equalTo: view.centerXAnchor),
+            textConnectWith.topAnchor.constraint(equalTo: buttonTwitter.topAnchor, constant: -27),
             
+            buttonFacebook.heightAnchor.constraint(equalToConstant: 35),
+            buttonFacebook.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            buttonFacebook.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            buttonFacebook.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
+            
+            buttonTwitter.heightAnchor.constraint(equalToConstant: 35),
+            buttonTwitter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            buttonTwitter.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            buttonTwitter.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80),
+            
+            textDontHaveAccount.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 100),
+            textDontHaveAccount.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -50),
+            
+            signUp.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -100),
+            signUp.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -43)
         ])
     }
     
