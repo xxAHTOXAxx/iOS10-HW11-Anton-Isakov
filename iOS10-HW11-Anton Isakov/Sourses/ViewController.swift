@@ -7,8 +7,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+extension UITextField {
+    func setLeftIcon(_ image: UIImage) {
+        let iconView = UIImageView(frame: CGRect(x: 10, y: 6, width: 20, height: 20))
+        iconView.image = image
+        let iconContanerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 56, height: 30))
+        iconContanerView.addSubview(iconView)
+        leftView = iconContanerView
+        leftViewMode = .always
+    }
+}
 
+class ViewController: UIViewController {
+    
     //MARK: - Outlets
     
     private lazy var imageView: UIImageView = {
@@ -17,6 +28,41 @@ class ViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var textNamePage: UILabel = {
+        let textNamePage = UILabel()
+        textNamePage.text = "Login"
+        textNamePage.layer.cornerRadius = 20
+        textNamePage.translatesAutoresizingMaskIntoConstraints = false
+        textNamePage.font = UIFont.boldSystemFont(ofSize: 30)
+        textNamePage.font = UIFont.preferredFont (forTextStyle: .largeTitle)
+        textNamePage.numberOfLines = 5
+        return textNamePage
+    }()
+    
+    private lazy var textLogin: UITextField = {
+        let textLogin = UITextField()
+        textLogin.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        textLogin.placeholder = "Enter your login"
+        textLogin.layer.cornerRadius = 20
+        textLogin.contentVerticalAlignment = .center
+        textLogin.translatesAutoresizingMaskIntoConstraints = false
+        textLogin.setLeftIcon(UIImage(systemName: "person.fill") ?? UIImage ())
+        textLogin.font = UIFont.systemFont(ofSize: 12)
+        return textLogin
+    }()
+    
+    private lazy var textPassword: UITextField = {
+        let textPassword = UITextField()
+        textPassword.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        textPassword.placeholder = "Enter your password"
+        textPassword.layer.cornerRadius = 20
+        textPassword.contentVerticalAlignment = .center
+        textPassword.translatesAutoresizingMaskIntoConstraints = false
+        textPassword.setLeftIcon(UIImage(systemName: "exclamationmark.lock") ?? UIImage ())
+        textPassword.font = UIFont.systemFont(ofSize: 12)
+        return textPassword
     }()
     
     private lazy var buttonLogin: UIButton = {
@@ -31,6 +77,14 @@ class ViewController: UIViewController {
         buttonLogin.layer.shouldRasterize = true
         buttonLogin.translatesAutoresizingMaskIntoConstraints = false
         return buttonLogin
+    }()
+    
+    private lazy var buttonForgotYourPassword: UIButton = {
+        let buttonForgotYourPassword = UIButton(type: .system)
+        buttonForgotYourPassword.setTitle("Forgot your password?", for: .normal)
+        buttonForgotYourPassword.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+        buttonForgotYourPassword.translatesAutoresizingMaskIntoConstraints = false
+        return buttonForgotYourPassword
     }()
     
     private lazy var buttonFacebook: UIButton = {
@@ -61,23 +115,7 @@ class ViewController: UIViewController {
         return buttonTwitter
     }()
     
-    private lazy var textLogin: UITextField = {
-        let textLogin = UITextField()
-        textLogin.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-        textLogin.placeholder = "Enter your login"
-        textLogin.layer.cornerRadius = 15
-        textLogin.translatesAutoresizingMaskIntoConstraints = false
-        return textLogin
-    }()
     
-    private lazy var textPassword: UITextField = {
-        let textPassword = UITextField()
-        textPassword.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-        textPassword.placeholder = "Enter your password"
-        textPassword.layer.cornerRadius = 15
-        textPassword.translatesAutoresizingMaskIntoConstraints = false
-        return textPassword
-    }()
     
     //MARK: - LifeCycle
     
@@ -96,11 +134,14 @@ class ViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(imageView)
+        view.addSubview(textNamePage)
+        view.addSubview(textLogin)
+        view.addSubview(textPassword)
+        view.addSubview(buttonForgotYourPassword)
         view.addSubview(buttonLogin)
         view.addSubview(buttonFacebook)
         view.addSubview(buttonTwitter)
-        view.addSubview(textLogin)
-        view.addSubview(textPassword)
+        
     }
     
     private func setupLayout() {
@@ -108,10 +149,28 @@ class ViewController: UIViewController {
             imageView.centerXAnchor.constraint (equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint (equalTo: view.centerYAnchor),
             
+            textNamePage.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            textNamePage.centerXAnchor.constraint (equalTo: view.centerXAnchor),
+            textNamePage.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -680),
+            
+            textLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
+            textLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
+            textLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
+            textLogin.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -640),
+            
+            textPassword.topAnchor.constraint(equalTo: view.topAnchor, constant: 230),
+            textPassword.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
+            textPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
+            textPassword.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -580),
+            
             buttonLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 580),
             buttonLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
             buttonLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
             buttonLogin.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -230),
+            
+            buttonForgotYourPassword.topAnchor.constraint(equalTo: buttonLogin.bottomAnchor, constant: 15),
+            buttonForgotYourPassword.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
+            buttonForgotYourPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
             
             buttonFacebook.topAnchor.constraint(equalTo: view.topAnchor, constant: 740),
             buttonFacebook.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
@@ -123,15 +182,7 @@ class ViewController: UIViewController {
             buttonTwitter.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
             buttonTwitter.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -80),
             
-            textLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
-            textLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
-            textLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            textLogin.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -640),
             
-            textPassword.topAnchor.constraint(equalTo: view.topAnchor, constant: 230),
-            textPassword.leftAnchor.constraint (equalTo: view.leftAnchor, constant: 50),
-            textPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -50),
-            textPassword.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -580),
         ])
     }
     
