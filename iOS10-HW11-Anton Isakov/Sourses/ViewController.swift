@@ -116,7 +116,11 @@ class ViewController: UIViewController {
     }()
     
     private lazy var buttonFacebook: UIButton = {
-        let buttonFacebook = UIButton(type: .system)
+        let buttonFacebook = UIButton()
+        let facebookIcon = UIImage(named: "facebook")
+        buttonFacebook.setImage(facebookIcon, for: .normal)
+        buttonFacebook.imageView?.contentMode = .scaleAspectFill
+        buttonFacebook.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 40)
         buttonFacebook.setTitle("Facebook", for: .normal)
         buttonFacebook.setTitleColor(UIColor.black, for: .normal)
         buttonFacebook.backgroundColor = .systemCyan
@@ -130,8 +134,12 @@ class ViewController: UIViewController {
     }()
     
     private lazy var buttonTwitter: UIButton = {
-        let buttonTwitter = UIButton(type: .system)
+        let buttonTwitter = UIButton()
         buttonTwitter.setTitle("Twitter", for: .normal)
+        let twitterIcon = UIImage(named: "twitter")
+        buttonTwitter.setImage(twitterIcon, for: .normal)
+        buttonTwitter.imageView?.contentMode = .scaleAspectFit
+        buttonTwitter.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 40)
         buttonTwitter.setTitleColor(UIColor.black, for: .normal)
         buttonTwitter.backgroundColor = .systemBlue
         buttonTwitter.layer.cornerRadius = 15
@@ -151,7 +159,6 @@ class ViewController: UIViewController {
         textDontHaveAccount.textColor = UIColor.black.withAlphaComponent(0.5)
         return textDontHaveAccount
     }()
-    
     
     //MARK: - LifeCycle
     
@@ -216,7 +223,7 @@ class ViewController: UIViewController {
             textPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -width * 0.13),
             textPassword.heightAnchor.constraint(equalToConstant: 38),
             
-            buttonLogin.topAnchor.constraint(equalTo: textPassword.bottomAnchor, constant: height * 0.29),
+            buttonLogin.topAnchor.constraint(equalTo: textPassword.bottomAnchor, constant: height * 0.30),
             buttonLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: width * 0.13),
             buttonLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -width * 0.13),
             buttonLogin.heightAnchor.constraint(equalToConstant: 41),
@@ -255,10 +262,9 @@ class ViewController: UIViewController {
             textDontHaveAccount.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -height * 0.07),
             
             signUp.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -width * 0.28),
-            signUp.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -height * 0.06)
+            signUp.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -height * 0.0615)
         ])
     }
-    
     //MARK: - Actions
     
 }
