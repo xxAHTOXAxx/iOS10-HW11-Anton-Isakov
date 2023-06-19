@@ -7,20 +7,9 @@
 
 import UIKit
 
-extension UITextField {
-    func setLeftIcon(_ image: UIImage) {
-        let iconView = UIImageView(frame: CGRect(x: 10, y: 6, width: 20, height: 20))
-        iconView.image = image
-        let iconContanerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 56, height: 30))
-        iconContanerView.addSubview(iconView)
-        leftView = iconContanerView
-        leftViewMode = .always
-    }
-}
-
 class ViewController: UIViewController {
     
-    //MARK: - Outlets
+    // MARK: - Outlets
     
     private lazy var imageView: UIImageView = {
         let image = UIImage(named: "background")
@@ -49,7 +38,7 @@ class ViewController: UIViewController {
         textLogin.layer.cornerRadius = 20
         textLogin.contentVerticalAlignment = .center
         textLogin.translatesAutoresizingMaskIntoConstraints = false
-        textLogin.setLeftIcon(UIImage(systemName: "person.fill") ?? UIImage ())
+        textLogin.setLeftIcon(UIImage(systemName: "person") ?? UIImage ())
         textLogin.font = UIFont.systemFont(ofSize: 12)
         return textLogin
     }()
@@ -61,7 +50,7 @@ class ViewController: UIViewController {
         textPassword.layer.cornerRadius = 20
         textPassword.contentVerticalAlignment = .center
         textPassword.translatesAutoresizingMaskIntoConstraints = false
-        textPassword.setLeftIcon(UIImage(systemName: "exclamationmark.lock") ?? UIImage ())
+        textPassword.setLeftIcon(UIImage(systemName: "lock") ?? UIImage ())
         textPassword.font = UIFont.systemFont(ofSize: 12)
         return textPassword
     }()
@@ -83,7 +72,7 @@ class ViewController: UIViewController {
     private lazy var buttonForgotYourPassword: UIButton = {
         let buttonForgotYourPassword = UIButton(type: .system)
         buttonForgotYourPassword.setTitle("Forgot your password?", for: .normal)
-        buttonForgotYourPassword.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+        buttonForgotYourPassword.setTitleColor(UIColor.white.withAlphaComponent(0.8), for: .normal)
         buttonForgotYourPassword.translatesAutoresizingMaskIntoConstraints = false
         return buttonForgotYourPassword
     }()
@@ -160,15 +149,6 @@ class ViewController: UIViewController {
         return textDontHaveAccount
     }()
     
-    //MARK: - LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        setupHierarchy()
-        setupLayout()
-    }
-    
     private lazy var signUp: UIButton = {
         let signUp = UIButton(type: .system)
         signUp.setTitle("Sign up?", for: .normal)
@@ -178,11 +158,18 @@ class ViewController: UIViewController {
         return signUp
     }()
     
-    //MARK: - Setups
+    // MARK: - LifeCycle
     
-    private func setupView() {
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        setupHierarchy()
+        setupLayout()
     }
+    
+    // MARK: - Setups
+    
+    private func setupView() {}
 
     private func setupHierarchy() {
         view.addSubview(imageView)
@@ -223,7 +210,7 @@ class ViewController: UIViewController {
             textPassword.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -width * 0.13),
             textPassword.heightAnchor.constraint(equalToConstant: 38),
             
-            buttonLogin.topAnchor.constraint(equalTo: textPassword.bottomAnchor, constant: height * 0.30),
+            buttonLogin.topAnchor.constraint(equalTo: textPassword.bottomAnchor, constant: height * 0.10),
             buttonLogin.leftAnchor.constraint (equalTo: view.leftAnchor, constant: width * 0.13),
             buttonLogin.rightAnchor.constraint (equalTo: view.rightAnchor, constant: -width * 0.13),
             buttonLogin.heightAnchor.constraint(equalToConstant: 41),
@@ -256,8 +243,6 @@ class ViewController: UIViewController {
             buttonTwitter.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -height * 0.11),
             buttonTwitter.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: width * 0.2),
             
-            //buttonTwitter.leadingAnchor.constraint(greaterThanOrEqualTo: buttonFacebook.trailingAnchor, constant: 40),
-            
             textDontHaveAccount.leftAnchor.constraint (equalTo: view.leftAnchor, constant: width * 0.25),
             textDontHaveAccount.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -height * 0.07),
             
@@ -265,7 +250,5 @@ class ViewController: UIViewController {
             signUp.bottomAnchor.constraint (equalTo: view.bottomAnchor, constant: -height * 0.0615)
         ])
     }
-    //MARK: - Actions
-    
 }
 
